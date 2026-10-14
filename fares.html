@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tahmeed Bus Fares</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="container nav-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">🚌</span>
+                <span>TAHMEED<span style="color: var(--primary)">BUS</span></span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a class="active" href="fares.html">Fares</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <a class="call-btn" href="https://wa.me/254100591007?text=Hello%20Tahmeed%20Bus%2C%20I%20would%20like%20to%20book%20a%20seat." target="_blank" rel="noopener noreferrer">Call to Book</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container section-heading">
+                <h2>Routes and Fares</h2>
+                <p>Choose from the latest Tahmeed fares from Nairobi and Mombasa.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container route-list" id="routeList"></div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Travel the route in comfort</h2>
+                    <p>Our buses and service quality make every destination feel closer and easier.</p>
+                </div>
+                <div class="gallery-grid">
+                    <figure class="gallery-card">
+                        <img src="WhatsApp Image 2026-08-10 at 18.30.50.jpeg" alt="Tahmeed Bus route view" loading="lazy" />
+                        <figcaption>Comfortable long-distance travel for every route.</figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img src="WhatsApp Image 2026-08-10 at 18.30.51 (1).jpeg" alt="Tahmeed Bus route image" loading="lazy" />
+                        <figcaption>Dependable service that keeps journeys moving.</figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img src="WhatsApp Image 2026-08-10 at 18.30.51 (2).jpeg" alt="Tahmeed Bus interior" loading="lazy" />
+                        <figcaption>Clean and spacious interiors for a relaxed trip.</figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img src="WhatsApp Image 2026-08-10 at 18.30.51.jpeg" alt="Tahmeed Bus travel moment" loading="lazy" />
+                        <figcaption>Friendly travel experiences on every route.</figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img src="WhatsApp Image 2026-08-10 at 18.30.52 (1).jpeg" alt="Tahmeed Bus service image" loading="lazy" />
+                        <figcaption>Trusted transport that makes travel easier.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="testimonial-float-container" id="testimonial-float-container" aria-live="polite"></div>
+
+    <footer>
+        <div class="container footer-inner">
+            <p>© 2026 Tahmeed Bus Services.</p>
+            <p>Fares are subject to confirmation.</p>
+        </div>
+    </footer>
+
+    <script>
+        const fares = {
+            Nairobi: {
+                "Sirare": 1600,
+                "Kehancha": 1600,
+                "Migori": 1600,
+                "Rongo • Sori": 1600,
+                "Rodi • Homa Bay • Mbita": 1600,
+                "Kisii • Oyugis • Sondu • Kendu Bay": 1600,
+                "Nyamira • Kadongo • Katito • Kendu Bay": 1600,
+                "Awasi • Kisumu • Bondo • Usenge": 1700,
+                "Kericho • Maseno • Luanda • Siaya": 1700,
+                "Nakuru • Yala • Ugunja • Bumala • Funyula • Port Victoria": 1700,
+                "Kodiaga • Busia": 1700,
+                "Kapsabet • Kakamega • Mumias • Bungoma": 1700,
+                "Kisumu • Majengo • Mbale": 1700,
+                "Nambale • Busia": 1700,
+                "Mombasa": 1700
+            },
+            Mombasa: {
+                "Oyugis • Kendu Bay": 3000,
+                "Kisii • Kehancha": 3000,
+                "Kisumu • Bondo • Siaya • Port Victoria": 3000,
+                "Homa Bay • Mbita": 3000,
+                "Rongo • Rodi • Sori": 3000
+            }
+        };
+
+        const routeList = document.getElementById("routeList");
+        const formatMoney = amount => `KSh ${Number(amount).toLocaleString("en-KE")}`;
+
+        const routes = [];
+        Object.entries(fares).forEach(([from, destinations]) => {
+            Object.entries(destinations).forEach(([to, fare]) => {
+                routes.push({
+                    from,
+                    to,
+                    fare
+                });
+            });
+        });
+
+        routes.forEach(route => {
+            const card = document.createElement("article");
+            card.className = "route-card";
+            const whatsappMessage = encodeURIComponent(`Hello Tahmeed Bus, I would like to book a ticket from ${route.from} to ${route.to}.`);
+            card.innerHTML = `
+                <div class="route-meta">
+                    <div>
+                        <strong>${route.from} → ${route.to}</strong>
+                        <small>Available route</small>
+                    </div>
+                    <span class="fare">${formatMoney(route.fare)}</span>
+                </div>
+                <a class="route-book-btn" href="https://wa.me/254100591007?text=${whatsappMessage}" target="_blank" rel="noopener noreferrer">Book via WhatsApp</a>
+            `;
+            routeList.appendChild(card);
+        });
+
+        const container = document.getElementById("testimonial-float-container");
+        if (container) {
+            const names = [
+                "Amina Wanjiku", "Daniel Otieno", "Grace Njeri", "Joseph Kibet", "Sarah Achieng", "Brian Muriuki", "Lucy Wambui", "Kevin Kariuki", "Moses Waweru", "Hellen Muthoni",
+                "Peter Kamau", "Faith Mwende", "Omar Hassan", "Njeri Nyambura", "Asha Mohamed", "Caleb Ndegwa", "Winnie Atieno", "Sam Karanja", "Ruth Wanjiru", "Eric Mutua",
+                "Mary Kilonzo", "James Owino", "Ann Maina", "Stephen Mwangangi", "Esther Mutisya", "Alex Kiplagat", "Mercy Naliaka", "Paul Kivuva", "Diana Chepkoech", "John Karanja",
+                "Rose Awuor", "Isaac Langat", "Naomi Kibet", "Martin Mwaura", "Cynthia Njeri", "Elias Kiprotich", "Nancy Kwamboka", "Peter Otieno", "Sharon Mwikali", "David Njoroge",
+                "Irene Wanjala", "Victor Ochieng", "Jane Muthoni", "Dennis Kinyua", "Lilian Akinyi", "Collins Wekesa", "Gladys Mokeira", "Simon Khamisi", "Priscah Njeri", "Brian Kigen",
+                "Mariam Salim", "Kiptoo Cheruiyot", "Betty Mwangi", "Emmanuel Kariuki", "Joy Wairimu", "Joel Wafula", "Wanjiku Mugo", "Abdi Noor", "Leah Naserian", "Kennedy Ouma",
+                "Frida Jepchirchir", "George Kibet", "Salome Chebet", "Robert Wekesa", "Esther Wambui", "Kevin Oduor", "Anne Kiarie", "Simon Maina", "Dorcas Kemunto", "Michael Ndegwa"
+            ];
+
+            const routes = [
+                "Nairobi → Kisumu", "Mombasa → Nairobi", "Nakuru → Eldoret", "Kisumu → Nairobi", "Eldoret → Nairobi",
+                "Thika → Mombasa", "Meru → Nairobi", "Garissa → Nairobi", "Nyeri → Kisumu", "Kakamega → Nairobi",
+                "Kitale → Mombasa", "Machakos → Nakuru", "Mandera → Nairobi", "Naivasha → Kisumu", "Kisii → Nairobi",
+                "Embu → Mombasa", "Malindi → Nairobi", "Busia → Nairobi", "Nanyuki → Eldoret", "Murang'a → Kisumu",
+                "Nairobi → Mombasa", "Kisumu → Eldoret", "Mombasa → Kisii", "Nairobi → Nakuru", "Eldoret → Kisumu",
+                "Nakuru → Nairobi", "Kisumu → Mombasa", "Nairobi → Meru", "Nairobi → Thika", "Busia → Kakamega",
+                "Kisumu → Busia", "Mombasa → Malindi", "Nairobi → Garissa", "Nanyuki → Nairobi", "Mandera → Mombasa",
+                "Kisii → Eldoret", "Thika → Nairobi", "Eldoret → Nakuru", "Nyeri → Nairobi", "Murang'a → Nairobi",
+                "Nairobi → Kitale", "Kisumu → Nakuru", "Machakos → Mombasa", "Nakuru → Kisii", "Busia → Nairobi",
+                "Mombasa → Eldoret", "Kisumu → Nairobi", "Nakuru → Mombasa", "Nairobi → Busia", "Eldoret → Nairobi",
+                "Meru → Mombasa", "Kisii → Nairobi", "Malindi → Nairobi", "Embu → Kisumu", "Nairobi → Nyeri", "Nairobi → Garissa"
+            ];
+
+            const times = ["just now", "2 mins ago", "5 mins ago", "9 mins ago", "14 mins ago", "21 mins ago", "27 mins ago", "38 mins ago", "46 mins ago", "58 mins ago"];
+            const testimonials = names.map((name, index) => ({
+                name,
+                time: times[index % times.length],
+                destination: routes[index % routes.length]
+            }));
+
+            let usedIndexes = [];
+
+            function showTestimonial() {
+                if (usedIndexes.length === testimonials.length) {
+                    usedIndexes = [];
+                }
+
+                let nextIndex = Math.floor(Math.random() * testimonials.length);
+                while (usedIndexes.includes(nextIndex)) {
+                    nextIndex = Math.floor(Math.random() * testimonials.length);
+                }
+
+                usedIndexes.push(nextIndex);
+                const item = testimonials[nextIndex];
+                const bubble = document.createElement("div");
+                bubble.className = "testimonial-bubble";
+                bubble.innerHTML = `
+                    <strong>${item.name}</strong>
+                    <span>Booked ${item.time}</span>
+                    <span>Destination: ${item.destination}</span>
+                `;
+
+                container.appendChild(bubble);
+
+                setTimeout(() => {
+                    bubble.classList.add("fade-out");
+                    setTimeout(() => bubble.remove(), 500);
+                }, 4200);
+            }
+
+            setInterval(showTestimonial, 5000);
+            showTestimonial();
+        }
+    </script>
+</body>
+
+</html>
